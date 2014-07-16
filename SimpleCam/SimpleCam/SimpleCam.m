@@ -391,18 +391,21 @@ static CGFloat optionUnavailableAlpha = 0.2;
             for (UIButton * btn in @[_flashBtn, _switchCameraBtn]) btn.hidden = NO;
             // Hide
             _saveBtn.hidden = YES;
-            
+
             // Force User Preference
             _captureBtn.hidden = _hideCaptureButton;
             _backBtn.hidden = _hideBackButton;
         }
-        
+
         [self evaluateFlashBtn];
-        
+
     } completion:nil];
 }
 
 - (void) capturePhoto {
+    if (isCapturingImage) {
+        return;
+    }
     isCapturingImage = YES;
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
